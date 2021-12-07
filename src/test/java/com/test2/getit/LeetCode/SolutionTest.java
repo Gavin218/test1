@@ -1,6 +1,5 @@
 package com.test2.getit.LeetCode;
 
-import com.test2.getit.leetcode.Solution;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
