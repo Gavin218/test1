@@ -1,7 +1,7 @@
 package com.test2.getit.mapper;
 
-import com.test2.getit.mapper.impl.UserMapperImpl;
-import com.test2.getit.vo.UserVO;
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

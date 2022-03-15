@@ -152,4 +152,75 @@ public class Solution {
         return list;
     }
 
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        List<Integer> row = new ArrayList<>();
+        List<Integer> col = new ArrayList<>();
+        HashSet<Integer> rowSet = new HashSet<>();
+        HashSet<Integer> colSet = new HashSet<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    rowSet.add(i);
+                    colSet.add(j);
+                }
+            }
+        }
+        row.addAll(rowSet);
+        col.addAll(colSet);
+        for (int oneRow : row) {
+            for (int i = 0; i < n; i++) {
+                matrix[oneRow][i] = 0;
+            }
+        }
+        for (int oneCol : col) {
+            for (int i = 0; i < m; i++) {
+                matrix[i][oneCol] = 0;
+            }
+        }
+    }
+
+    public int findJudge(int n, int[][] trust) {
+        HashMap<Integer, List<Integer>> trustMap = new HashMap<>();
+        HashSet<Integer> trustOthers = new HashSet<>();
+        for (int[] combine : trust) {
+            if (trustMap.containsKey(combine[1])) {
+                trustMap.get(combine[1]).add(combine[0]);
+            }
+            else {
+                List<Integer> list = new ArrayList<>();
+                list.add(combine[0]);
+                trustMap.put(combine[1], list);
+            }
+            trustOthers.add(combine[0]);
+        }
+        for (Map.Entry<Integer, List<Integer>> entry : trustMap.entrySet()) {
+            if (!trustOthers.contains(entry.getKey()) && entry.getValue().size()==n) {
+                return entry.getKey();
+            }
+        }
+        return -1;
+    }
+
+    public int dayOfYear(String date) {
+        String[] dateList = date.split("-");
+        int year = Integer.parseInt(dateList[0]);
+        int month = Integer.parseInt(dateList[1]);
+        int day = Integer.parseInt(dateList[2]);
+        int[] theMonthList = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (isLeapYear(year)) {
+            theMonthList[1] = 29;
+        }
+        int[] lastMonths = Arrays.copyOfRange(theMonthList, 0, month-1);
+        return Arrays.stream(lastMonths).sum() + day;
+    }
+
+    public boolean isLeapYear(int year) {
+        if (year%400 == 0 || (year%400 != 0 && year%4 == 0)) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -1,10 +1,16 @@
 package com.test2.getit.controller;
 
 
-import com.test2.getit.Repository.UserRepository;
-import com.test2.getit.domain.User;
+
+import com.test2.getit.bean.Result;
+import com.test2.getit.bean.User;
+
+import com.test2.getit.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * @ClassName: UserController
@@ -14,15 +20,12 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 
-@RestController
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserController(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private UserService userService;
 
     @GetMapping("/hello")
     public String hello(){
@@ -34,14 +37,30 @@ public class UserController {
         return "How surprise it is!!";
     }
 
-    @PostMapping("/person/save")
-    public User save(@RequestParam String name){
-        User user = new User();
-        user.setName(name);
-        if(userRepository.save(user)){
-            System.out.printf("用户对象：%s 保存成功！ \n", user);
-        }
-        return user;
+
+    /**
+     * 注册
+     * @param user 参数封装
+     * @return Result
+     */
+    @RequestMapping(value = "/regist218")
+    public Object regist218(User user){
+        return "regist";
+    }
+
+    @PostMapping(value = "/regist")
+    public Result regist(User user){
+        return userService.regist(user);
+    }
+
+    /**
+     * 登录
+     * @param user 参数封装
+     * @return Result
+     */
+    @PostMapping(value = "/login")
+    public Result login(User user){
+        return userService.login(user);
     }
 
 }

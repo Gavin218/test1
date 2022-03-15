@@ -59,4 +59,19 @@ class SolutionTest {
         List<String> list = solution.fizzBuzz(15);
         System.out.println(list);
     }
+
+    @Test
+    void setZeroes() {
+        int[][] m = {{1,1,1},{1,0,1},{1,1,1}};
+        solution.setZeroes(m);
+        System.out.println(m);
+        int[][] x = new int[0][0];
+        System.out.println(x.length);
+        String s = "2019-02-10";
+        String[] st = s.split("-");
+        int[] xx = {2,4,1,5};
+        int[] xxx = Arrays.copyOfRange(xx, 0, 0);
+        System.out.println(Arrays.stream(xxx).sum());
+
+    }
 }
