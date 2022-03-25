@@ -5,6 +5,7 @@ package com.test2.getit.controller;
 import com.test2.getit.bean.Result;
 import com.test2.getit.bean.User;
 
+import com.test2.getit.service.AdminService;
 import com.test2.getit.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 
-@Controller
+
 @RequestMapping("/user")
+@RestController
 public class UserController {
 
     @Autowired
@@ -43,10 +45,6 @@ public class UserController {
      * @param user 参数封装
      * @return Result
      */
-    @RequestMapping(value = "/regist218")
-    public Object regist218(User user){
-        return "regist";
-    }
 
     @PostMapping(value = "/regist")
     public Result regist(User user){

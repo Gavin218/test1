@@ -31,17 +31,31 @@ public class UserService {
         result.setSuccess(false);
         result.setDetail(null);
         try {
-            User existUser = userMapper.findUserByName(user.getUsername());
-            if(existUser != null){
-                //如果用户名已存在
-                result.setMsg("用户名已存在");
+            int nameLength = user.getUsername().length();
+            int passwordLength = user.getPassword().length();
+            if (nameLength == 0 || passwordLength == 0) {
+                result.setMsg("用户名或密码不能为空");
+            }
+            else if (nameLength > 16) {
+                result.setMsg("用户名不能超过16个字符！");
+            }
+            else if (passwordLength > 16 || passwordLength < 6) {
+                result.setMsg("密码需要在6——16个字符之间！");
+            }
+            else {
+                User existUser = userMapper.findUserByName(user.getUsername());
+                if(existUser != null){
+                    //如果用户名已存在
+                    result.setMsg("用户名已存在");
 
-            }else{
-                userMapper.regist(user);
-                //System.out.println(user.getId());
-                result.setMsg("注册成功");
-                result.setSuccess(true);
-                result.setDetail(user);
+                }
+                else {
+                    userMapper.regist(user);
+                    //System.out.println(user.getId());
+                    result.setMsg("注册成功");
+                    result.setSuccess(true);
+                    result.setDetail(user);
+                }
             }
         } catch (Exception e) {
             result.setMsg(e.getMessage());
